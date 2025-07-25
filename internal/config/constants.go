@@ -1,12 +1,12 @@
 package config
 
 const (
-	ScreenWidth = 800
+	ScreenWidth = 600
 	ScreenHeight = 600
 	Title = "Conway's Game of Life Go"
 )
 
 const (
-	RowSquares = 50
-	ColSquares = 50
+	NumSquares = 30
+	SquareSize = ScreenWidth / NumSquares
 )
