@@ -1,6 +1,7 @@
 package game
 
 import (
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/somewhat9/conway-life-go/internal/config"
 	"golang.org/x/image/font"
 )
@@ -10,4 +11,32 @@ type Game struct{
 	PlayBtn *Button
 	PauseBtn *Button
 	board [config.ScreenHeight][config.ScreenWidth]uint8
+	running bool
+}
+
+func (g *Game) StatusUpdate() {
+	if g.PlayBtn.click {
+		g.running = true
+		g.PlayBtn.click = false
+	}
+	if g.PauseBtn.click {
+		g.running = false
+		g.PauseBtn.click = false
+	}
+}
+
+func (g *Game) GridUpdate(val uint8) {
+	mx, my := ebiten.CursorPosition()
+	for y, col := range g.board {
+		for x := range col {
+			x0 := float32(x*config.SquareSize)+1+config.GridOffsetX 
+			y0 := float32(y*config.SquareSize)+1+config.GridOffsetY
+			x1 := x0 + config.SquareSize-2
+			y1 := y0 + config.SquareSize-2
+
+			if float32(mx) >= x0 && float32(mx) <= x1 && float32(my) >= y0 && float32(my) <= y1 {
+				g.board[y][x] = val
+			}
+		}
+	}
 }
