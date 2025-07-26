@@ -13,10 +13,10 @@ type Game struct{
 	PlayBtn *Button
 	PauseBtn *Button
 	SpeedBtn *DynamicButton
+	Speed uint8
 	board [config.NumSquares][config.NumSquares]bool
 	running bool
 	lastTick time.Time
-	speed uint8
 }
 
 func (g *Game) StatusUpdate() {
@@ -30,11 +30,11 @@ func (g *Game) StatusUpdate() {
 	}
 	if g.SpeedBtn.States[g.SpeedBtn.State].click {
 		g.SpeedBtn.States[g.SpeedBtn.State].click = false
-		g.speed = config.Speeds[g.SpeedBtn.State]
 		g.SpeedBtn.State++
 		if g.SpeedBtn.State >= uint8(len(g.SpeedBtn.States)) {
 			g.SpeedBtn.State = 0
 		}
+		g.Speed = config.Speeds[g.SpeedBtn.State]
 	}
 }
 

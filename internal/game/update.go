@@ -20,7 +20,7 @@ func (g *Game) Update() error {
 
 	if g.running {
 		now := time.Now()
-		if now.Sub(g.lastTick) >= time.Second/time.Duration(g.speed) {
+		if now.Sub(g.lastTick) >= time.Second/time.Duration(g.Speed) {
 			g.GridTick()
 			g.lastTick = now
 		}

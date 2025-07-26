@@ -65,6 +65,7 @@ func main() {
 			),
 		},
 	}
+	g.Speed = config.Speeds[0]
 	
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
