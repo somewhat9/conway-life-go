@@ -5,7 +5,8 @@
 [![Ebiten Version](https://img.shields.io/badge/ebiten-%3E%3Dv2.8-green)](https://ebiten.org/)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey)](/LICENSE)
 
-![life-demo](https://github.com/user-attachments/assets/3a81225d-3516-43fc-9539-9486ef900f9d)
+![life-demo-2](https://github.com/user-attachments/assets/e8c18491-6bd7-458f-a7a2-b8f4bfa4f39f)
+
 
 ### Features:
 - [x] WASM Compilation
