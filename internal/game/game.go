@@ -10,7 +10,7 @@ type Game struct{
 	Font font.Face
 	PlayBtn *Button
 	PauseBtn *Button
-	board [config.NumSquares][config.NumSquares]uint8
+	board [config.NumSquares][config.NumSquares]bool
 	running bool
 }
 
@@ -25,7 +25,7 @@ func (g *Game) StatusUpdate() {
 	}
 }
 
-func (g *Game) GridUpdate(val uint8) {
+func (g *Game) GridUpdate(val bool) {
 	mx, my := ebiten.CursorPosition()
 	for y, col := range g.board {
 		for x := range col {
@@ -42,17 +42,14 @@ func (g *Game) GridUpdate(val uint8) {
 }
 
 func (g *Game) GridTick() {
-	var new_board [config.NumSquares][config.NumSquares]uint8 = g.board
+	var new_board [config.NumSquares][config.NumSquares]bool = g.board
 	for y, col := range g.board {
 		for x, value := range col {
 			n := g.CountNeighbors(x, y)
-			if value == 1 {
-				//fmt.Printf("(x: %d, y: %d) %d\n", x, y, n)
-				if n < 2 || n > 3 {
-					new_board[y][x] = 0
-				}
-			} else if n == 3 {
-				new_board[y][x] = 1
+			if value { 
+				new_board[y][x] = !(n < 2 || n > 3)
+			} else {
+				new_board[y][x] = (n == 3)
 			}
 		}
 	}
@@ -68,7 +65,7 @@ func (g *Game) CountNeighbors(x, y int) uint8 {
 				continue
 			}
 			nx := (x + dx + len(g.board[ny])) % len(g.board[ny])
-			if g.board[ny][nx] == 1 {
+			if g.board[ny][nx] {
 				count++
 			}
 		}

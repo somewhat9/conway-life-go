@@ -8,9 +8,9 @@ func (g *Game) Update() error {
 	g.StatusUpdate()
 
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
-		g.GridUpdate(1)
+		g.GridUpdate(true)
 	} else if ebiten.IsMouseButtonPressed(ebiten.MouseButtonRight) {
-		g.GridUpdate(0)
+		g.GridUpdate(false)
 	}
 
 	if g.running {
