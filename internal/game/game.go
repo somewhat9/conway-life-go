@@ -1,17 +1,22 @@
 package game
 
 import (
+	"time"
+
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/text/v2"
 	"github.com/somewhat9/conway-life-go/internal/config"
-	"golang.org/x/image/font"
 )
 
 type Game struct{
-	Font font.Face
+	Font text.Face
 	PlayBtn *Button
 	PauseBtn *Button
+	SpeedBtn *DynamicButton
 	board [config.NumSquares][config.NumSquares]bool
 	running bool
+	lastTick time.Time
+	speed uint8
 }
 
 func (g *Game) StatusUpdate() {
@@ -22,6 +27,14 @@ func (g *Game) StatusUpdate() {
 	if g.PauseBtn.click {
 		g.running = false
 		g.PauseBtn.click = false
+	}
+	if g.SpeedBtn.States[g.SpeedBtn.State].click {
+		g.SpeedBtn.States[g.SpeedBtn.State].click = false
+		g.speed = config.Speeds[g.SpeedBtn.State]
+		g.SpeedBtn.State++
+		if g.SpeedBtn.State >= uint8(len(g.SpeedBtn.States)) {
+			g.SpeedBtn.State = 0
+		}
 	}
 }
 
@@ -54,7 +67,7 @@ func (g *Game) GridTick() {
 		}
 	}
 	g.board = new_board
-} 
+}
 
 func (g *Game) CountNeighbors(x, y int) uint8 {
 	var count uint8 = 0
@@ -65,10 +78,10 @@ func (g *Game) CountNeighbors(x, y int) uint8 {
 				continue
 			}
 			nx := (x + dx + len(g.board[ny])) % len(g.board[ny])
-			if g.board[ny][nx] {
+			if g.board[ny][nx] { 
 				count++
 			}
 		}
-	}
+	} 
 	return count
 }

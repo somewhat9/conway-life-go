@@ -10,7 +10,7 @@ const (
 	GridOffsetX = 0
 	GridOffsetY = SquareSize*2
 
-	FontSize = 36
+	FontSize = 24
 	Title = "Conway's Game of Life Go"
 )
 

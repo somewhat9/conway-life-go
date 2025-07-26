@@ -1,10 +1,15 @@
 package game
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"time"
+
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 func (g *Game) Update() error {
 	g.PlayBtn.Update()
 	g.PauseBtn.Update()
+	g.SpeedBtn.Update()
 	g.StatusUpdate()
 
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
@@ -14,7 +19,11 @@ func (g *Game) Update() error {
 	}
 
 	if g.running {
-		g.GridTick()
+		now := time.Now()
+		if now.Sub(g.lastTick) >= time.Second/time.Duration(g.speed) {
+			g.GridTick()
+			g.lastTick = now
+		}
 	}
 
 	return nil
