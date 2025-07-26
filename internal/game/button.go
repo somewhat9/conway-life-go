@@ -38,7 +38,6 @@ func (b *Button) Update() error {
 	} else {
 		b.click = false
 	}
-
 	return nil
 }
 

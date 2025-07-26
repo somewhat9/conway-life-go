@@ -15,9 +15,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			vector.DrawFilledRect(screen, float32(x*config.SquareSize)+1+config.GridOffsetX, float32(y*config.SquareSize)+1+config.GridOffsetY, config.SquareSize-2, config.SquareSize-2, config.Colors[value], false)
 		}
 	}
-	g.PlayBtn.Update()
-	g.PauseBtn.Update()
-
+	
 	g.PlayBtn.Draw(screen)
 	g.PauseBtn.Draw(screen)
 }

@@ -12,6 +12,10 @@ func (g *Game) Update() error {
 	} else if ebiten.IsMouseButtonPressed(ebiten.MouseButtonRight) {
 		g.GridUpdate(0)
 	}
-	
+
+	if g.running {
+		g.GridTick()
+	}
+
 	return nil
 }
